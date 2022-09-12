@@ -613,7 +613,7 @@ wget -O cek-ws "https://raw.githubusercontent.com/sibeesans/v4/main/xray/cek-ws.
 
 # vless
 wget -O add-vless "https://raw.githubusercontent.com/sibeesans/v4/main/xray/add-vless.sh" && chmod +x add-vless
-wget -O trialvless "https://raw.githubusercontent.com/sibeesans/v4/main/xray/trialvmess.sh" && chmod +x trialvless
+wget -O trialvless "https://raw.githubusercontent.com/sibeesans/v4/main/xray/trialvless.sh" && chmod +x trialvless
 wget -O renew-vless "https://raw.githubusercontent.com/sibeesans/v4/main/xray/renew-vless.sh" && chmod +x renew-vless
 wget -O del-vless "https://raw.githubusercontent.com/sibeesans/v4/main/xray/del-vless.sh" && chmod +x del-vless
 wget -O cek-vless "https://raw.githubusercontent.com/sibeesans/v4/main/xray/cek-vless.sh" && chmod +x cek-vless
