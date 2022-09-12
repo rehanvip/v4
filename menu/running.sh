@@ -245,8 +245,8 @@ kernelku=$(uname -r)
 
 # DNS PATCH
 #tipeos2=$(uname -m)
-Name=$(curl -sS https://raw.githubusercontent.com/kamunikan/permission/main/ipmini | grep $MYIP | awk '{print $2}')
-Exp=$(curl -sS https://raw.githubusercontent.com/kamunikan/permission/main/ipmini | grep $MYIP | awk '{print $3}')
+Name=$(curl -sS https://raw.githubusercontent.com/sibeesans/permission/main/ipmini | grep $MYIP | awk '{print $2}')
+Exp=$(curl -sS https://raw.githubusercontent.com/sibeesans/permission/main/ipmini | grep $MYIP | awk '{print $3}')
 # GETTING DOMAIN NAME
 Domen="$(cat /etc/xray/domain)"
 echo -e ""
