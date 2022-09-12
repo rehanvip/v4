@@ -10,9 +10,6 @@ green() { echo -e "\\033[32;1m${*}\\033[0m"; }
 red() { echo -e "\\033[31;1m${*}\\033[0m"; }
 
 clear
-VLESSTrial=trial`</dev/urandom tr -dc A-Z0-9 | head -c4`
-Hariii=1
-Passss=1
 source /var/lib/SIJA/ipvps.conf
 if [[ "$IP" = "" ]]; then
 domain=$(cat /etc/xray/domain)
@@ -21,17 +18,10 @@ domain=$IP
 fi
 tls="$(cat ~/log-install.txt | grep -w "Vless TLS" | cut -d: -f2|sed 's/ //g')"
 none="$(cat ~/log-install.txt | grep -w "Vless None TLS" | cut -d: -f2|sed 's/ //g')"
-until [[ $VLESSTrial =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
-		
-		CLIENT_EXISTS=$(grep -w $VLESSTrial /etc/xray/config.json | wc -l)
-
-		if [[ ${CLIENT_EXISTS} == '1' ]]; then
-			echo ""
-			echo "A client with the specified name was already created, please choose another name."
-			exit 1
-		fi
-	done
-
+user=trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
+uuid=$(cat /proc/sys/kernel/random/uuid)
+masaaktif=1
+exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
 uuid=$(cat /proc/sys/kernel/random/uuid)
 read -p "Expired (days): " masaaktif
 exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
