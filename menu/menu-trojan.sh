@@ -41,8 +41,8 @@ echo -e ""
 case $opt in
 1) clear ; add-tr ;;
 2) clear ; trialtrojan ;;
-3) clear ; del-tr ;;
-4) clear ; renew-tr ;;
+3) clear ; renew-tr ;;
+4) clear ; del-tr ;;
 5) clear ; cek-tr ;;
 0) clear ; menu ;;
 x) exit ;;
