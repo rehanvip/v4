@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 #########################
@@ -50,4 +49,4 @@ echo "Username  : $user"
 echo "Expired   : $exp"
 echo "==============================="
 echo "AKCELL XRAY MULTI VLESS"
-read -p "Press Enter For Back To V2Ray/VLess Menu / CTRL+C To Cancel : "
+read -p "Press Enter For Back To Menu / CTRL+C To Cancel : "
