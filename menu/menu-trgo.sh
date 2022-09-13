@@ -41,10 +41,10 @@ echo -e ""
 case $opt in
 1) clear ; addtrgo ;;
 2) clear ; trialtrojango ;;
-3) clear ; deltrgo ;;
-4) clear ; renewtrgo ;;
+3) clear ; renewtrgo ;;
+4) clear ; deltrgo ;;
 5) clear ; cektrgo ;;
 0) clear ; menu ;;
 x) exit ;;
-*) echo "Boh salah tekan, Sayang kedak Babi" ; sleep 1 ; menu-trojan ;;
+*) echo "salah tekan" ; sleep 1 ; menu-trojan ;;
 esac
