@@ -11,44 +11,43 @@ green() { echo -e "\\033[32;1m${*}\\033[0m"; }
 red() { echo -e "\\033[31;1m${*}\\033[0m"; }
 
 clear
-
-NUMBER_OF_CLIENTS=$(grep -c -E "^#& " "/etc/xray/config.json")
+NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/v2ray/vless.json")
 	if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
-		echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-        echo -e "\E[44;1;39m     ⇱ Delete Vless Account ⇲      \E[0m"
-        echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 		echo ""
 		echo "You have no existing clients!"
-		echo ""
-		echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-		read -n 1 -s -r -p "Press any key to back on menu"
-        v2ray-menu
+		exit 1
 	fi
 
 	clear
-	echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-    echo -e "\E[44;1;39m     ⇱ Delete Vless Account ⇲      \E[0m"
-    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-    echo "  User       Expired  " 
-	echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-	grep -E "^#& " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq
-    echo ""
-    red "tap enter to go back"
-    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-	read -rp "Input Username : " user
-    if [ -z $user ]; then
-    v2ray-menu
-    else
-    exp=$(grep -wE "^#& $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
-    sed -i "/^#& $user $exp/,/^},{/d" /etc/xray/config.json
-    systemctl restart xray > /dev/null 2>&1
-    clear
-    echo ""
-    echo ""
-    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-    echo "  Xray/Vmess Account Deleted  "
-    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-    echo " Client Name : $user"
-    echo " Expired On  : $exp"
-    echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-    echo ""
+	echo ""
+	echo " Select the existing client you want to remove"
+	echo " Press CTRL+C to return"
+	echo " ==============================="
+	echo -e	"  NO ${GREEN}USER   ${RED}EXPIRED ${BLUE}Net${NC}"
+        grep -E "^## " "/etc/xray/config.json" | cut -d ' ' -f 2,3,6,7 | nl -s ') '
+	until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
+		if [[ ${CLIENT_NUMBER} == '1' ]]; then
+			read -rp "Select one client [1]: " CLIENT_NUMBER
+		else
+			read -rp "Select one client [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
+		fi
+	done
+user=$(grep -E "^## " "/etc/xray/config.json" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
+exp=$(grep -E "^## " "/etc/xray/config.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
+hariini=$(grep -E "^## " "/etc/xray/config.json" | cut -d ' ' -f 4 | sed -n "${CLIENT_NUMBER}"p)
+uuid=$(grep -E "^## " "/etc/xray/config.json" | cut -d ' ' -f 5 | sed -n "${CLIENT_NUMBER}"p)
+tlvs=$(grep -E "^## " "/etc/xray/config.json" | cut -d ' ' -f 6 | sed -n "${CLIENT_NUMBER}"p)
+g=$(grep -E "^## " "/etc/xray/config.json" | cut -d ' ' -f 7 | sed -n "${CLIENT_NUMBER}"p)
+sed -i "/^## $user $exp $hariini $uuid $tlvs/,/^},{/d" /etc/xray/config.json
+sed -i "/^## $user $exp $hariini $uuid $tlvs $g/,/^},{/d" /etc/xray/config.json
+systemctl restart xray.service
+clear
+echo ""
+echo "==============================="
+echo "${NC}${GREEN} VMESS AKUN BERHASIL DI HAPUS ${NC}"
+echo "==============================="
+echo "Username  : $user"
+echo "Expired   : $exp"
+echo "==============================="
+echo "AKCELL XRAY MULTI VLESS"
+read -p "Press Enter For Back To V2Ray/VLess Menu / CTRL+C To Cancel : "
