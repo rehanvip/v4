@@ -102,7 +102,8 @@ NUMBER_OF_CLIENTS=$(grep -c -E "^#! " "/etc/xray/config.json")
     echo " Client Name : $user"
     echo " Expired On  : $exp"
     echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo -e "Bagoes Vpn"
     echo ""
-    read -n 1 -s -r -p "Press any key to back on menu"    
-    v2ray-menu
-    fi
+    read -n 1 -s -r -p "Press any key to back on menu"
+
+    menu
