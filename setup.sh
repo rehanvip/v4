@@ -3,51 +3,6 @@ dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Dat
 biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 #########################
 
-BURIQ () {
-    curl -sS https://raw.githubusercontent.com/sibeesans/permission/main/ipmini > /root/tmp
-    data=( `cat /root/tmp | grep -E "^### " | awk '{print $2}'` )
-    for user in "${data[@]}"
-    do
-    exp=( `grep -E "^### $user" "/root/tmp" | awk '{print $3}'` )
-    d1=(`date -d "$exp" +%s`)
-    d2=(`date -d "$biji" +%s`)
-    exp2=$(( (d1 - d2) / 86400 ))
-    if [[ "$exp2" -le "0" ]]; then
-    echo $user > /etc/.$user.ini
-    else
-    rm -f  /etc/.$user.ini > /dev/null 2>&1
-    fi
-    done
-    rm -f  /root/tmp
-}
-# https://raw.githubusercontent.com/sibeesans/permission/main/ipmini 
-MYIP=$(curl -sS ipv4.icanhazip.com)
-Name=$(curl -sS https://raw.githubusercontent.com/sibeesans/permission/main/ipmini | grep $MYIP | awk '{print $2}')
-echo $Name > /usr/local/etc/.$Name.ini
-CekOne=$(cat /usr/local/etc/.$Name.ini)
-
-Bloman () {
-if [ -f "/etc/.$Name.ini" ]; then
-CekTwo=$(cat /etc/.$Name.ini)
-    if [ "$CekOne" = "$CekTwo" ]; then
-        res="Expired"
-    fi
-else
-res="Permission Accepted..."
-fi
-}
-
-PERMISSION () {
-    MYIP=$(curl -sS ipv4.icanhazip.com)
-    IZIN=$(curl -sS https://raw.githubusercontent.com/sibeesans/permission/main/ipmini | awk '{print $4}' | grep $MYIP)
-    if [ "$MYIP" = "$IZIN" ]; then
-    Bloman
-    else
-    res="Permission Denied!"
-    fi
-    BURIQ
-}
-
 clear
 red='\e[1;31m'
 green='\e[0;32m'
@@ -166,25 +121,11 @@ echo -e "[ ${green}INFO${NC} ] Aight good ... installation file is ready"
 sleep 2
 echo -ne "[ ${green}INFO${NC} ] Check permission : "
 
-PERMISSION
-if [ -f /home/needupdate ]; then
-red "Your script need to update first !"
-exit 0
-elif [ "$res" = "Permission Accepted..." ]; then
-green "Permission Accepted!"
-else
-red "Permission Denied!"
-rm setup.sh > /dev/null 2>&1
-sleep 10
-exit 0
-fi
-sleep 3
-
 mkdir -p /var/lib/SIJA >/dev/null 2>&1
 echo "IP=" >> /var/lib/SIJA/ipvps.conf
 
 echo ""
-wget -q https://raw.githubusercontent.com/sibeesans/v4/main/tools.sh;chmod +x tools.sh;./tools.sh
+wget -q https://raw.githubusercontent.com/bracoli/v4/main/tools.sh;chmod +x tools.sh;./tools.sh
 rm tools.sh
 clear
 yellow "Add Domain for vmess/vless/trojan dll"
@@ -209,15 +150,15 @@ echo -e "$green      Install SSH / WS               $NC"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 sleep 2
 clear
-wget https://raw.githubusercontent.com/sibeesans/v4/main/ssh/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
+wget https://raw.githubusercontent.com/bracoli/v4/main/ssh/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
 #Instal Xray
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "$green          Install XRAY              $NC"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 sleep 2
 clear
-wget https://raw.githubusercontent.com/sibeesans/v4/main/xray/ins-xray.sh && chmod +x ins-xray.sh && ./ins-xray.sh
-wget https://raw.githubusercontent.com/sibeesans/v4/main/sshws/insshws.sh && chmod +x insshws.sh && ./insshws.sh
+wget https://raw.githubusercontent.com/bracoli/v4/main/xray/ins-xray.sh && chmod +x ins-xray.sh && ./ins-xray.sh
+wget https://raw.githubusercontent.com/bracoli/v4/main/sshws/insshws.sh && chmod +x insshws.sh && ./insshws.sh
 clear
 cat> /root/.profile << END
 # ~/.profile: executed by Bourne-compatible login shells.
@@ -244,7 +185,6 @@ if [ ! -f "/etc/log-create-user.log" ]; then
 echo "Log All Account " > /etc/log-create-user.log
 fi
 history -c
-serverV=$( curl -sS https://raw.githubusercontent.com/sibeesans/permission/main/version  )
 echo $serverV > /opt/.ver
 aureb=$(cat /home/re_otm)
 b=11
