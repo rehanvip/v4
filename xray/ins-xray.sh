@@ -79,6 +79,7 @@ mkdir -p /home/vps/public_html
 # set uuid
 uuid=$(cat /proc/sys/kernel/random/uuid)
 # xray config
+rm -rf /etc/xray/conf/*
 cat <<EOF >/etc/xray/conf/00_log.json
 {
   "log": {
@@ -108,7 +109,7 @@ cat <<EOF >/etc/xray/conf/01_TCP_inbounds.json
   ]
 }
 EOF
-cat <<EOF >/etc/samvpn/xray/conf/02_VLESS_WS_inbounds.json
+cat <<EOF >/etc/xray/conf/02_VLESS_WS_inbounds.json
    {
      "listen": "127.0.0.1",
      "port": "14016",
@@ -132,7 +133,7 @@ cat <<EOF >/etc/samvpn/xray/conf/02_VLESS_WS_inbounds.json
    ]
 }
 EOF
-cat <<EOF >/etc/samvpn/xray/conf/03_VMESS_WS_inbounds.json
+cat <<EOF >/etc/xray/conf/03_VMESS_WS_inbounds.json
      {
      "listen": "127.0.0.1",
      "port": "23456",
@@ -156,7 +157,7 @@ cat <<EOF >/etc/samvpn/xray/conf/03_VMESS_WS_inbounds.json
    ]
 }
 EOF
-cat <<EOF >/etc/samvpn/xray/conf/04_TROJAN_WS_inbounds.json
+cat <<EOF >/etc/xray/conf/04_TROJAN_WS_inbounds.json
     {
       "listen": "127.0.0.1",
       "port": "25432",
@@ -181,7 +182,7 @@ cat <<EOF >/etc/samvpn/xray/conf/04_TROJAN_WS_inbounds.json
    ]
 }
 EOF
-cat <<EOF >/etc/samvpn/xray/conf/05_SSH_WS_inbounds.json
+cat <<EOF >/etc/xray/conf/05_SSH_WS_inbounds.json
     {
          "listen": "127.0.0.1",
         "port": "30300",
@@ -206,7 +207,7 @@ cat <<EOF >/etc/samvpn/xray/conf/05_SSH_WS_inbounds.json
    ]
 }
 EOF
-cat <<EOF >/etc/samvpn/xray/conf/06_VLESS_GRPC_inbounds.json
+cat <<EOF >/etc/xray/conf/06_VLESS_GRPC_inbounds.json
       {
         "listen": "127.0.0.1",
      "port": "24456",
@@ -230,7 +231,7 @@ cat <<EOF >/etc/samvpn/xray/conf/06_VLESS_GRPC_inbounds.json
    ]
 }
 EOF
-cat <<EOF >/etc/samvpn/xray/conf/07_VMESS_GRPC_inbounds.json
+cat <<EOF >/etc/xray/conf/07_VMESS_GRPC_inbounds.json
      {
       "listen": "127.0.0.1",
      "port": "31234",
@@ -254,7 +255,7 @@ cat <<EOF >/etc/samvpn/xray/conf/07_VMESS_GRPC_inbounds.json
    ]
 }
 EOF
-cat <<EOF >/etc/samvpn/xray/conf/08_TROJAN_GRPC_inbounds.json
+cat <<EOF >/etc/xray/conf/08_TROJAN_GRPC_inbounds.json
      {
         "listen": "127.0.0.1",
      "port": "33456",
@@ -278,7 +279,7 @@ cat <<EOF >/etc/samvpn/xray/conf/08_TROJAN_GRPC_inbounds.json
  ]
 }
 EOF
-cat <<EOF >/etc/samvpn/xray/conf/09_SS_GRPC_inbounds.json
+cat <<EOF >/etc/xray/conf/09_SS_GRPC_inbounds.json
    {
     "listen": "127.0.0.1",
     "port": "30310",
